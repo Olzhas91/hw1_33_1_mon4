@@ -1,5 +1,12 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from django.shortcuts import render
+from django.http import HttpResponse
+from . import models
+
+def postListView(request):
+    post_value = models.Post.objects.all()
+    return render(request, 'printer/printer.html', {'post_key': post_value})
 
 def helloView(request):
     return HttpResponse('<h1>Добро пожаловать. Это мои проект.</h1>')
