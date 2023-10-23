@@ -6,5 +6,7 @@ urlpatterns = [
     path('now_data/', views.now_dataView),
     path('goodby/', views.goodbyView),
     path('post/', views.postListView),
+    path('post/', views.postListView),
+    path('post_detail/<int:id>/', views.postDetailView),
 
 ]
