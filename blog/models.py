@@ -1,16 +1,19 @@
 from django.db import models
-class Post(models.Model):
 
-    objects = None
+from blog.constants import TYPE_PRINTER
+
+class Hashtag(models.Model):
+    title = models.CharField(max_length=64)
+
+    def __str__(self):
+        return self.title
+
     class Meta:
-        verbose_name = 'Пост'
-        verbose_name_plural = 'Посты'
-
-    TYPE_PRINTER = (
-        ('МФУ', 'МФУ'),
-        ('Лазерный', 'Лазерный'),
-        ('Цветной', 'Цветной'),
-    )
+        verbose_name = 'Хэштег'
+        verbose_name_plural = 'Хэшткги'
+class Post(models.Model):
+    objects = None
+    hashtags = models.ManyToManyField(Hashtag)
 
     title = models.CharField(null=True, max_length=100, verbose_name='Название принтера')
     image = models.ImageField(null=True, upload_to='', verbose_name='Загрузите фото')
@@ -23,3 +26,7 @@ class Post(models.Model):
     def __str__(self):
         return (f'Название принтера {self.title}- \n'
                 f'Цена принтера {self.cost}')
+
+    class Meta:
+        verbose_name = 'Пост'
+        verbose_name_plural = 'Посты'

@@ -2,19 +2,34 @@ from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
 from . import models
 
-def postListView(request):
-    post_value = models.Post.objects.all()
-    return render(request, 'post/post.html', {'post_key': post_value})
+def post_list_view(request):
+    if request.method == 'GET':
+        post_value = models.Post.objects.all()
 
-def helloView(request):
-    return HttpResponse('<h1>Добро пожаловать. Это мои проект.</h1>')
+        context_data = {
+            'post_key': post_value
+        }
 
-def now_dataView(request):
-    return HttpResponse('<h1>Сейчас 2023 год.</h1>')
+        return render(request, 'post/post.html', context=context_data)
 
-def goodbyView(request):
-    return HttpResponse('<h1>Досвидание. До скорой встречи.</h1>')
+def hello_view(request):
+    if request.method == 'GET':
+        return HttpResponse('<h1>Добро пожаловать. Это мои проект.</h1>')
 
-def postDetailView(request, id):
-    post_id = get_object_or_404(models.Post, id=id)
-    return render(request, 'post/post_detail.html', {'post_id': post_id})
+def now_data_view(request):
+    if request.method == 'GET':
+        return HttpResponse('<h1>Сейчас 2023 год.</h1>')
+
+def goodby_view(request):
+    if request.method == 'GET':
+        return HttpResponse('<h1>Досвидание. До скорой встречи.</h1>')
+
+def post_detail_view(request, id):
+    if request.method == 'GET':
+        post = get_object_or_404(models.Post, id=id)
+
+        context_data = {
+            'post': post
+        }
+        return render(request, 'post/post_detail.html', context=context_data)
+
