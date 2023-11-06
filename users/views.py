@@ -1,6 +1,5 @@
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
-from django.db import models
 from users.forms import RegisterForm, LoginForm
 from django.shortcuts import render, redirect
 
@@ -10,7 +9,7 @@ def register_view(request):
         context_data = {
             'from': RegisterForm
         }
-        return render(request, 'users/reqister.html', context=context_data)
+        return render(request, 'users/register.html', context=context_data)
 
     if request.method == 'POST':
         data = request.POST
@@ -30,7 +29,7 @@ def register_view(request):
         context_data = {
             'form': form
         }
-        return render(request, 'users/reqister.html', context=context_data)
+        return render(request, 'users/register.html', context=context_data)
 
 
 def login_view(request):
@@ -51,7 +50,7 @@ def login_view(request):
                 password=form.cleaned_data.get('password1')
             )
             if user:
-                login(request=user, user=user)
+                login(request, user)
                 return redirect('/post')
             else:
                 form.add_error('password1', 'Простите, попробуйте еще раз')

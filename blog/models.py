@@ -2,6 +2,7 @@ from django.db import models
 
 from blog.constants import TYPE_PRINTER
 
+
 class Hashtag(models.Model):
     title = models.CharField(max_length=64)
 
@@ -11,6 +12,8 @@ class Hashtag(models.Model):
     class Meta:
         verbose_name = 'Хэштег'
         verbose_name_plural = 'Хэшткги'
+
+
 class Post(models.Model):
     objects = None
     hashtags = models.ManyToManyField(Hashtag)
